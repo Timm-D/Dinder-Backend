@@ -1,19 +1,9 @@
 const express = require("express")
-const mongoose = require("mongoose")
 const app = express()
+const connection = require("./database/connection")
 
 
-const uri = "mongodb+srv://Tim:Dinder123@dinder.3ntspee.mongodb.net/test"
 
-async function connect() {
-    try {
-        await mongoose.connect(uri)
-        console.log("Connected to MongoDB")
-    } catch (error) {
-        console.log(error)
-    }
-}
-connect();
 
 
 app.listen(9090, ()=> {
