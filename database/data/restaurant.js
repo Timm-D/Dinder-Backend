@@ -1,4 +1,4 @@
-const Restaurants = [
+const restaurantData = [
   {
     name: "50 Degrees North",
     addressLine1: "Copthorne Hotel, Armada Way, Plymouth",
@@ -6,7 +6,7 @@ const Restaurants = [
     ratingValue: 4,
     geoLong: -4.1430832636010955,
     geoLat: 50.3745463,
-    type: "French"
+    type: "French",
   },
   {
     name: "Jake's",
@@ -15,7 +15,7 @@ const Restaurants = [
     ratingValue: 4,
     geoLong: -4.13551,
     geoLat: 50.3735,
-    type: "English"
+    type: "English",
   },
   {
     name: "Toot",
@@ -24,7 +24,7 @@ const Restaurants = [
     ratingValue: 5,
     geoLong: -4.1412255,
     geoLat: 50.3733769,
-    type: "Indian"
+    type: "Indian",
   },
   {
     name: "Crispy's",
@@ -33,7 +33,7 @@ const Restaurants = [
     ratingValue: 4,
     geoLong: -4.14205,
     geoLat: 50.37177,
-    type: "English"
+    type: "English",
   },
   {
     name: "Turtle Bay Plymouth",
@@ -42,7 +42,7 @@ const Restaurants = [
     ratingValue: 4,
     geoLong: -4.15902,
     geoLat: 50.36954,
-    type: "Caribbean"
+    type: "Caribbean",
   },
   {
     name: "Lanterns Restaurant",
@@ -51,7 +51,7 @@ const Restaurants = [
     ratingValue: 5,
     geoLong: -4.14387,
     geoLat: 50.37253,
-    type: "English"
+    type: "English",
   },
   {
     name: "Steak & Omelette",
@@ -60,7 +60,7 @@ const Restaurants = [
     ratingValue: 5,
     geoLong: -4.14511,
     geoLat: 50.37254,
-    type: "Italian"
+    type: "Italian",
   },
   {
     name: "City grill",
@@ -69,7 +69,7 @@ const Restaurants = [
     ratingValue: 5,
     geoLong: -4.14654,
     geoLat: 50.37245,
-    type: "English"
+    type: "English",
   },
   {
     name: "Zeus",
@@ -78,7 +78,7 @@ const Restaurants = [
     ratingValue: 4,
     geoLong: -4.146753,
     geoLat: 50.37245,
-    type: "Grill"
+    type: "Grill",
   },
   {
     name: "Nawroz Restaurant",
@@ -87,7 +87,7 @@ const Restaurants = [
     ratingValue: 5,
     geoLong: -4.14964,
     geoLat: 50.37201,
-    type: "Italian"
+    type: "Italian",
   },
   {
     name: "Dunya Restaurant Turkish Cuisine",
@@ -96,7 +96,7 @@ const Restaurants = [
     ratingValue: 5,
     geoLong: -4.14661,
     geoLat: 50.37037,
-    type: "Grill"
+    type: "Grill",
   },
   {
     name: "Fletcher's Restaurant",
@@ -105,7 +105,7 @@ const Restaurants = [
     ratingValue: 5,
     geoLong: -4.14278,
     geoLat: 50.3687,
-    type: "French"
+    type: "French",
   },
   {
     name: "Positano",
@@ -114,7 +114,7 @@ const Restaurants = [
     ratingValue: 5,
     geoLong: -4.14131,
     geoLat: 50.37353,
-    type: "Italian"
+    type: "Italian",
   },
   {
     name: "McDonald's",
@@ -123,7 +123,7 @@ const Restaurants = [
     ratingValue: 3,
     geoLong: -4.13965,
     geoLat: 50.37116,
-    type: "FastFood"
+    type: "FastFood",
   },
   {
     name: "Tea & Bun",
@@ -132,7 +132,7 @@ const Restaurants = [
     ratingValue: 5,
     geoLong: -4.14611,
     geoLat: 50.37219,
-    type: "English"
+    type: "English",
   },
   {
     name: "Soul Food Vendor",
@@ -141,7 +141,7 @@ const Restaurants = [
     ratingValue: 5,
     geoLong: -4.1469,
     geoLat: 50.37206,
-    type: "Caribbean"
+    type: "Caribbean",
   },
   {
     name: "Oishi Sushi",
@@ -150,7 +150,7 @@ const Restaurants = [
     ratingValue: 4,
     geoLong: -4.14175,
     geoLat: 50.37318,
-    type: "Sushi"
+    type: "Sushi",
   },
   {
     name: "Malcolm Barnecutt Bakery",
@@ -159,7 +159,7 @@ const Restaurants = [
     ratingValue: 5,
     geoLong: -4.14611,
     geoLat: 50.37227,
-    type: "Bakery"
+    type: "Bakery",
   },
   {
     name: "Taco Bell",
@@ -168,7 +168,7 @@ const Restaurants = [
     ratingValue: 4,
     geoLong: -4.13965,
     geoLat: 50.37116,
-    type: "Mexican"
+    type: "Mexican",
   },
   {
     name: "KFC",
@@ -177,7 +177,7 @@ const Restaurants = [
     ratingValue: 4,
     geoLong: -4.13879,
     geoLat: 50.37116,
-    type: "FastFood"
+    type: "FastFood",
   },
   {
     name: "The Caffeine Club",
@@ -186,7 +186,7 @@ const Restaurants = [
     ratingValue: 4,
     geoLong: -4.13705,
     geoLat: 50.37414,
-    type: "Grill"
+    type: "Grill",
   },
   {
     name: "Manuka Bar & Eatery",
@@ -194,8 +194,8 @@ const Restaurants = [
     postCode: "PL4 8AB",
     ratingValue: 4,
     geoLong: -4.13731,
-    geoLat: 50.37480,
-    type: "Bakery"
+    geoLat: 50.3748,
+    type: "Bakery",
   },
   {
     name: "Mrs Browns",
@@ -204,7 +204,7 @@ const Restaurants = [
     ratingValue: 5,
     geoLong: -4.13579,
     geoLat: 50.37506,
-    type: "Bakery"
+    type: "Bakery",
   },
   {
     name: "The Nowhere Inn",
@@ -213,25 +213,25 @@ const Restaurants = [
     ratingValue: 4,
     geoLong: -4.13481,
     geoLat: 50.37469,
-    type: "English"
+    type: "English",
   },
   {
     name: "The Camel",
     addressLine1: "51 Regent St, Plymouth",
     postCode: "PL4 8DE",
     ratingValue: 4,
-    geoLong: -4.13440,
+    geoLong: -4.1344,
     geoLat: 50.37282,
-    type: "Grill"
+    type: "Grill",
   },
   {
     name: "New Jade Garden",
     addressLine1: "74 Ebrington St, Plymouth",
     postCode: "PL4 9AQ",
     ratingValue: 3,
-    geoLong: -4.13350,
+    geoLong: -4.1335,
     geoLat: 50.37251,
-    type: "Chinese"
+    type: "Chinese",
   },
   {
     name: "The Woodside Bar & Kitchen",
@@ -240,7 +240,7 @@ const Restaurants = [
     ratingValue: 4,
     geoLong: -4.13255,
     geoLat: 50.37255,
-    type: "English"
+    type: "English",
   },
   {
     name: "Friary Mill Bakery Ltd",
@@ -249,7 +249,7 @@ const Restaurants = [
     ratingValue: 5,
     geoLong: -4.13224,
     geoLat: 50.37232,
-    type: "Bakery"
+    type: "Bakery",
   },
   {
     name: "Domino's Pizza - Plymouth - City Centre",
@@ -257,8 +257,8 @@ const Restaurants = [
     postCode: "PL4 0AH",
     ratingValue: 3,
     geoLong: -4.13318,
-    geoLat: 50.37180,
-    type: "Italian"
+    geoLat: 50.3718,
+    type: "Italian",
   },
   {
     name: "Babawok",
@@ -267,7 +267,7 @@ const Restaurants = [
     ratingValue: 4,
     geoLong: -4.13458,
     geoLat: 50.37078,
-    type: "Chinese"
+    type: "Chinese",
   },
   {
     name: "Little India ( Best Indian Takeaway Plymouth )",
@@ -276,7 +276,7 @@ const Restaurants = [
     ratingValue: 4,
     geoLong: -4.13298,
     geoLat: 50.37585,
-    type: "Indian"
+    type: "Indian",
   },
   {
     name: "HonkyTonk Wine Library",
@@ -284,8 +284,8 @@ const Restaurants = [
     postCode: "PL4 0BN",
     ratingValue: 5,
     geoLong: -4.13139,
-    geoLat: 50.37020,
-    type: "French"
+    geoLat: 50.3702,
+    type: "French",
   },
   {
     name: "Suphas",
@@ -294,7 +294,7 @@ const Restaurants = [
     ratingValue: 4,
     geoLong: -4.13089,
     geoLat: 50.36906,
-    type: "Caribbean"
+    type: "Caribbean",
   },
   {
     name: "China House",
@@ -303,7 +303,7 @@ const Restaurants = [
     ratingValue: 5,
     geoLong: -4.13388,
     geoLat: 50.36894,
-    type: "Grill"
+    type: "Grill",
   },
   {
     name: "Lockyers Quay Cookhouse + Pub",
@@ -312,7 +312,7 @@ const Restaurants = [
     ratingValue: 4,
     geoLong: -4.12783,
     geoLat: 50.36742,
-    type: "French"
+    type: "French",
   },
   {
     name: "Rockfish Plymouth",
@@ -321,7 +321,7 @@ const Restaurants = [
     ratingValue: 4,
     geoLong: -4.13242,
     geoLat: 50.36665,
-    type: "FastFood"
+    type: "FastFood",
   },
   {
     name: "Waypoint Bar and Bistro",
@@ -329,17 +329,18 @@ const Restaurants = [
     postCode: "PL4 0LP",
     ratingValue: 4,
     geoLong: -4.12788,
-    geoLat: 50.36500,
-    type: "English"
+    geoLat: 50.365,
+    type: "English",
   },
   {
     name: "Pizza Express",
-    addressLine1: "Leisure Centre, Unit 2, 16 The Barbican, Barbican Approach, Plymouth",
+    addressLine1:
+      "Leisure Centre, Unit 2, 16 The Barbican, Barbican Approach, Plymouth",
     postCode: "PL4 0LG",
     ratingValue: 4,
-    geoLong: -4.12520,
+    geoLong: -4.1252,
     geoLat: 50.36739,
-    type: "Italian"
+    type: "Italian",
   },
   {
     name: "East End",
@@ -347,9 +348,8 @@ const Restaurants = [
     postCode: "PL4 0NG",
     ratingValue: 4,
     geoLong: -4.12762,
-    geoLat: 50.37010,
-    type: "Chinese"
-
+    geoLat: 50.3701,
+    type: "Chinese",
   },
   {
     name: "Silver Bird",
@@ -358,8 +358,8 @@ const Restaurants = [
     ratingValue: 4,
     geoLong: -4.12583,
     geoLat: 50.36978,
-    type: "FastFood"
-  }
+    type: "FastFood",
+  },
 ];
 
-module.exports = Restaurants;
+module.exports = restaurantData;

@@ -48,12 +48,11 @@ const usersSchema = new mongoose.Schema({
   },
   preferences: {
     type: String,
-    required: false,
+    required: true,
   },
 });
 
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);
 const Users = mongoose.model("Users", usersSchema);
 
-module.exports = { Restaurant, Users};
-
+module.exports = { Restaurant, Users };

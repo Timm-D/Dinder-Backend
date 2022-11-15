@@ -1,3 +1,2 @@
-exports.restaurantData = require("./restaurant")
-exports.usersData = require("./users")
-
+exports.restaurantData = require("./restaurant");
+exports.usersData = require("./users");
