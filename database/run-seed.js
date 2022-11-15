@@ -3,14 +3,24 @@ const { default: mongoose } = require("mongoose");
 const { Restaurant, Users } = require("./seed");
 const data = require("./data/index");
 
-const seedDB = async () => {
-  const { restaurantData, usersData } = data;
-  await Restaurant.deleteMany({});
+const { restaurantData, usersData } = data;
+
+const seedDataBase = async (restaurantData, usersData) => {
   await Restaurant.insertMany(restaurantData);
-  await Users.deleteMany({});
   await Users.insertMany(usersData);
 };
 
-seedDB().then(() => {
-  mongoose.connection.close();
-});
+const clearDataBase = async () => {
+  await Restaurant.deleteMany({});
+  await Users.deleteMany({});
+};
+
+const closeDataBase = async () => {
+  await mongoose.connection.close();
+}
+
+// seedDB(restaurantData, usersData).then(() => {
+  
+// });
+
+module.exports = {seedDataBase, clearDataBase, closeDataBase};
