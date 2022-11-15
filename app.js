@@ -15,10 +15,6 @@ app.get("/api/restaurants", getAllRestaurants);
 
 
 
-
-
-
-
 app.all("*", (req, res) => {
   res.status(404).send({ msg: "Not Found" });
 });

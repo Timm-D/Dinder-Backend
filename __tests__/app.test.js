@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require("../app");
 const db = require("../database/connection");
-const seedData = require("../database/data/index");
+const seedData = require("../database/data/dev_data/index");
 const {seedDataBase, clearDataBase, closeDataBase} = require("../database/run-seed");
 
 const { restaurantData, usersData } = seedData;
