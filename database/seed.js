@@ -27,8 +27,33 @@ const restaurantSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  type: {
+    type: String,
+    required: true,
+  },
 });
 
-const Restaurant = mongoose.model("Restaurant", restaurantSchema)
+const usersSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  postcode: {
+    type: String,
+    required: true,
+  },
+  preferences: {
+    type: String,
+    required: false,
+  },
+});
 
-module.exports = Restaurant
+const Restaurant = mongoose.model("Restaurant", restaurantSchema);
+const Users = mongoose.model("Users", usersSchema);
+
+module.exports = { Restaurant, Users};
+
