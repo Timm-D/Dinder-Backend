@@ -1,7 +1,19 @@
 const mongoose = require("mongoose");
-require('dotenv').config();
-const mongoString = process.env.DATABASE_URL
+const ENV = process.env.NODE_ENV || "dev";
+const config =
+  ENV === "production"
+    ? {
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      }
+    : {};
+require("dotenv").config({
+  path: `${__dirname}/../.env.${ENV}`,
+});
 
+const mongoString = process.env.DATABASE_URL
 
 async function connect() {
   try {

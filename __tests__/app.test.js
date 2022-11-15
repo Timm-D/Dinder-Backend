@@ -1,16 +1,19 @@
 const request = require("supertest");
 const app = require("../app");
 const db = require("../database/connection");
-const seedData = require("../database/data/dev_data/index");
-const {seedDataBase, clearDataBase, closeDataBase} = require("../database/run-seed");
+const seedData = require("../database/test_data/index");
+const {clearDataBase, closeDataBase} = require("../database/run-seed");
+const {seedDataBase} = require("../database/seed")
 
 const { restaurantData, usersData } = seedData;
 
-beforeEach(() => {
-  return seedDataBase(restaurantData, usersData);
-});
+// beforeEach(() => {
+//   return seedDataBase(restaurantData, usersData);
+// });
 
 beforeAll(async () => await db())
+
+beforeEach(async () => await seedDataBase(restaurantData,usersData))
 
 afterEach(async () => await clearDataBase())
 
