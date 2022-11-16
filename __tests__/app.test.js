@@ -182,4 +182,12 @@ describe("GET /api/users/:username", () => {
       }])
     })
   })
+  test("404:responds with error when the user does not exist", () => {
+    return request(app)
+      .get("/api/users/notAUser")
+      .expect(404)
+      .then((response) => {
+        expect(response.body).toEqual({ msg: "User not found" });
+      });
+  });
 })
