@@ -2,29 +2,27 @@ const request = require("supertest");
 const app = require("../app");
 const db = require("../database/connection");
 const seedData = require("../database/test_data/index");
-const {clearDataBase, closeDataBase} = require("../database/run-seed");
-const {seedDataBase} = require("../database/seed")
+const {
+  seedDataBase,
+  closeDataBase,
+  clearDataBase,
+} = require("../database/seed");
 
 const { restaurantData, usersData } = seedData;
 
-// beforeEach(() => {
-//   return seedDataBase(restaurantData, usersData);
-// });
+beforeEach(async () => await seedDataBase(restaurantData, usersData));
 
-beforeAll(async () => await db())
+//Will clear DB post seed
+// afterEach(async () => await clearDataBase())
 
-beforeEach(async () => await seedDataBase(restaurantData,usersData))
-
-afterEach(async () => await clearDataBase())
-
-afterAll(async () => await closeDataBase())
+afterAll(async () => await closeDataBase());
 
 describe("GET/api/restaurants", () => {
   test("200: responds with object containing an array of all restaurant objects", () => {
     return request(app)
       .get("/api/restaurants")
       .expect(200)
-      .then(( {body} ) => {
+      .then(({ body }) => {
         expect(body).toHaveLength(40);
         expect(Array.isArray(body)).toBe(true);
         body.forEach((restaurant) => {

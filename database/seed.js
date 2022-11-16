@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-
 const restaurantSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -53,18 +52,28 @@ const usersSchema = new mongoose.Schema({
   },
 });
 
-
-
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);
 const Users = mongoose.model("Users", usersSchema);
 
-
 const seedDataBase = async (restaurantData, usersData) => {
-  await Restaurant.deleteMany({})
+  await Restaurant.deleteMany({});
   await Restaurant.insertMany(restaurantData);
-  await Users.deleteMany({})
+  await Users.deleteMany({});
   await Users.insertMany(usersData);
 };
 
+const clearDataBase = async () => {
+  await Restaurant.deleteMany({});
+  await Users.deleteMany({});
+};
+const closeDataBase = async () => {
+  await mongoose.connection.close();
+};
 
-module.exports = { Restaurant, Users, seedDataBase};
+module.exports = {
+  Restaurant,
+  Users,
+  seedDataBase,
+  clearDataBase,
+  closeDataBase,
+};

@@ -6,7 +6,7 @@ const getAllRestaurants = (req, res, next) => {
       res.status(200).send(restaurantData);
     })
     .catch((err) => {
-        next(err)
+      next(err);
     });
 };
 
