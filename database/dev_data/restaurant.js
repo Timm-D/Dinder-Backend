@@ -11,7 +11,7 @@ const restaurantData = [
   {
     name: "Jake's",
     addressLine1: "Regent Terrace, 5 Regent St, Plymouth",
-    postCode: "PL4 8BA",
+    postCode: "PL1 1NX",
     ratingValue: 4,
     geoLong: -4.13551,
     geoLat: 50.3735,
