@@ -17,3 +17,10 @@ exports.getIndividualUserByUsername = (req, res, next) => {
     next(err);
   })
 }
+
+exports.patchUserByUsername = (req, res, next) => {
+  const {username} = req.params;
+  const {preferences} = req.body;
+  // console.log(preferences)
+  
+}

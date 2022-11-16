@@ -178,7 +178,7 @@ describe("GET /api/users/:username", () => {
         username: "Sol",
         password: "MyPassword00",
         postcode: "M5 6TN",
-        preferences: ["italian"]
+        preferences: ["Italian"]
       }])
     })
   })
@@ -206,6 +206,15 @@ describe("PATCH /api/users/:username", () => {
     .patch("/api/users/Sol")
     .send({preferences: "English"})
     .expect(200)
-    // .then(())
+    .then(({body}) => {
+      expect(body).toHaveLength(1);
+      expect(Array.isArray(body)).toBe(true);
+      expect.objectContaining([{
+        username: "Sol",
+        password: "MyPassword00",
+        postcode: "M5 6TN",
+        preferences: ["Italian", "English"]
+      }])
+    })
   })
 })

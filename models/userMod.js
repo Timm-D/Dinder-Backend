@@ -18,3 +18,7 @@ exports.fetchIndividualUserByUsername = (username) => {
     return Promise.reject({status: 400, msg: "Invalid username"})
   }
 }
+
+exports.updateUserByUsername = (username, preferences) => {
+  return Users.updateOne(username, username.preferences.push(preferences))
+}
