@@ -40,6 +40,31 @@ describe("GET/api/restaurants", () => {
         });
       });
   });
+});
+
+describe("GET/api/users", () => {
+  test("200:responds with object containing an array of all users", () => {
+    return request(app)
+      .get("/api/users")
+      .expect(200)
+      .then(({ body }) => {
+        expect(body).toHaveLength(4);
+        expect(Array.isArray(body)).toBe(true);
+        body.forEach((user) => {
+          expect(user).toEqual(
+            expect.objectContaining({
+              username: expect.any(String),
+              password: expect.any(String),
+              postcode: expect.any(String),
+              preferences: expect.any(String),
+            })
+          );
+        });
+      });
+  });
+});
+
+describe("Error: Returns 404 if path not found", () => {
   test("404: returns not found when the url is incorrect", () => {
     return request(app)
       .get("/api/nothinghere")
