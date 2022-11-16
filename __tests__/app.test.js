@@ -118,6 +118,8 @@ describe("GET/api/restaurants/:location", () => {
   });
 });
 
+
+
 describe("GET/api/restaurants/:location/:name", () => {
   test("200: returns a single restaurant in a selected location", () => {
     return request(app)
@@ -160,6 +162,40 @@ describe("GET/api/restaurants/:location/:name", () => {
       .expect(404)
       .then((response) => {
         expect(response.body).toEqual({ msg: "Nothing found" });
+      });
+  });
+})
+
+describe("GET /api/users/:username", () => {
+  test("200: returns array with specified users information", () => {
+    return request(app)
+    .get("/api/users/Sol")
+    .expect(200)
+    .then(({body}) => {
+      expect(body).toHaveLength(1);
+      expect(Array.isArray(body)).toBe(true);
+      expect.objectContaining([{
+        username: "Sol",
+        password: "MyPassword00",
+        postcode: "M5 6TN",
+        preferences: "italian"
+      }])
+    })
+  })
+  test("400:responds with error when the username contains invalid characters", () => {
+    return request(app)
+      .get("/api/users/b!lly*")
+      .expect(400)
+      .then((response) => {
+        expect(response.body).toEqual({ msg: "Invalid username" });
+      });
+  });
+  test("404:responds with error when the user does not exist", () => {
+    return request(app)
+      .get("/api/users/notAUser")
+      .expect(404)
+      .then((response) => {
+        expect(response.body).toEqual({ msg: "User not found" });
       });
   });
 })
