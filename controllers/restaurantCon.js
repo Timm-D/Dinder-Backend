@@ -1,6 +1,6 @@
 const { fetchAllRestaurants } = require("../models/restaurantMod");
 
-const getAllRestaurants = (req, res, next) => {
+exports.getAllRestaurants = (req, res, next) => {
   fetchAllRestaurants()
     .then((restaurantData) => {
       res.status(200).send(restaurantData);
@@ -9,5 +9,3 @@ const getAllRestaurants = (req, res, next) => {
       next(err);
     });
 };
-
-module.exports = getAllRestaurants;
