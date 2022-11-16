@@ -56,7 +56,7 @@ describe("GET/api/users", () => {
               username: expect.any(String),
               password: expect.any(String),
               postcode: expect.any(String),
-              preferences: expect.any(String),
+              preferences: expect.any(Array),
             })
           );
         });
@@ -178,7 +178,7 @@ describe("GET /api/users/:username", () => {
         username: "Sol",
         password: "MyPassword00",
         postcode: "M5 6TN",
-        preferences: "italian"
+        preferences: ["italian"]
       }])
     })
   })
@@ -198,4 +198,14 @@ describe("GET /api/users/:username", () => {
         expect(response.body).toEqual({ msg: "User not found" });
       });
   });
+})
+
+describe("PATCH /api/users/:username", () => {
+  test("200: returns updated user information, editing preferences", () => {
+    return request(app)
+    .patch("/api/users/Sol")
+    .send({preferences: "English"})
+    .expect(200)
+    // .then(())
+  })
 })
