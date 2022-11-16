@@ -117,3 +117,22 @@ describe("GET/api/restaurants/:location", () => {
       });
   });
 });
+
+
+describe("GET /api/users/:username", () => {
+  test("200: returns array with specified users information", () => {
+    return request(app)
+    .get("/api/users/Sol")
+    .expect(200)
+    .then(({body}) => {
+      expect(body).toHaveLength(1);
+      expect(Array.isArray(body)).toBe(true);
+      expect.objectContaining([{
+        username: "Sol",
+        password: "MyPassword00",
+        postcode: "M5 6TN",
+        preferences: "italian"
+      }])
+    })
+  })
+})
