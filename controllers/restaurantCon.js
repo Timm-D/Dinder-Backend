@@ -1,6 +1,9 @@
-const { fetchAllRestaurants } = require("../models/restaurantMod");
+const {
+  fetchAllRestaurants,
+  fetchRestaurantsByLocation,
+} = require("../models/restaurantMod");
 
-const getAllRestaurants = (req, res, next) => {
+exports.getAllRestaurants = (req, res, next) => {
   fetchAllRestaurants()
     .then((restaurantData) => {
       res.status(200).send(restaurantData);
@@ -10,4 +13,14 @@ const getAllRestaurants = (req, res, next) => {
     });
 };
 
-module.exports = getAllRestaurants;
+exports.getRestaurantsByLocation = (req, res, next) => {
+  const { location } = req.params;
+
+  fetchRestaurantsByLocation(location)
+    .then((restaurants) => {
+      res.status(200).send(restaurants);
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
