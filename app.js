@@ -4,6 +4,7 @@ const app = express();
 const {
   getAllRestaurants,
   getRestaurantsByLocation,
+  getIndividualRestaurantByLocation,
 } = require("./controllers/restaurantCon");
 
 const { getAllUsers } = require("./controllers/userCon");
@@ -12,6 +13,7 @@ app.use(express.json());
 app.get("/api/restaurants", getAllRestaurants);
 app.get("/api/users", getAllUsers);
 app.get("/api/restaurants/:location", getRestaurantsByLocation);
+app.get("/api/restaurants/:location/:name", getIndividualRestaurantByLocation);
 
 app.all("*", (req, res) => {
   res.status(404).send({ msg: "Not Found" });

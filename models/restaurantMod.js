@@ -22,3 +22,15 @@ exports.fetchRestaurantsByLocation = (location) => {
     }
   );
 };
+
+exports.fetchIndividualRestaurantByLocation = (location, name) => {
+  if (location[0].match(/[0-9]/)) {
+    return Promise.reject({status: 400, msg: "Invalid location type"})
+  }
+  return Restaurant.find({postCode: location, name: name}).then((individualRestaurant) => {
+    if (individualRestaurant.length === 0) {
+      return Promise.reject({ status: 404, msg: "Nothing found" })
+    }
+    return individualRestaurant;
+  })
+}
