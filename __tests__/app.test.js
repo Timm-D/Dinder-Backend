@@ -182,6 +182,14 @@ describe("GET /api/users/:username", () => {
       }])
     })
   })
+  test("400:responds with error when the username contains invalid characters", () => {
+    return request(app)
+      .get("/api/users/b!lly*")
+      .expect(400)
+      .then((response) => {
+        expect(response.body).toEqual({ msg: "Invalid username" });
+      });
+  });
   test("404:responds with error when the user does not exist", () => {
     return request(app)
       .get("/api/users/notAUser")
