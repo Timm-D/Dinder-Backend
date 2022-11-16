@@ -117,3 +117,49 @@ describe("GET/api/restaurants/:location", () => {
       });
   });
 });
+
+describe("GET/api/restaurants/:location/:name", () => {
+  test("200: returns a single restaurant in a selected location", () => {
+    return request(app)
+    .get("/api/restaurants/PL1 1AR/50 Degrees North")
+    .expect(200)
+    .then(({ body }) => {
+      expect(body).toHaveLength(1);
+      expect(Array.isArray(body)).toBe(true);
+      expect.objectContaining([{
+        name: "50 Degrees North",
+        addressLine1: "Copthorne Hotel, Armada Way, Plymouth",
+        postCode: "PL1 1AR",
+        ratingValue: 4,
+        geoLong: -4.1430832636010955,
+        geoLat: 50.3745463,
+        type: "French"
+      }])
+    })
+  })
+  test("400:responds with error when the location is of invalid type", () => {
+    return request(app)
+      .get("/api/restaurants/123/50 Degrees North")
+      .expect(400)
+      .then((response) => {
+        expect(response.body).toEqual({ msg: "Invalid location type" });
+      });
+  });
+
+  test("404:responds with error when the location does not exist", () => {
+    return request(app)
+      .get("/api/restaurants/PL5 7WQ/50 Degrees North")
+      .expect(404)
+      .then((response) => {
+        expect(response.body).toEqual({ msg: "Nothing found" });
+      });
+  });
+  test("404:responds with error when the name does not exist", () => {
+    return request(app)
+      .get("/api/restaurants/PL1 1AR/0 Degrees North")
+      .expect(404)
+      .then((response) => {
+        expect(response.body).toEqual({ msg: "Nothing found" });
+      });
+  });
+})

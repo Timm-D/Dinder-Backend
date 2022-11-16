@@ -1,6 +1,7 @@
 const {
   fetchAllRestaurants,
   fetchRestaurantsByLocation,
+  fetchIndividualRestaurantByLocation,
 } = require("../models/restaurantMod");
 
 exports.getAllRestaurants = (req, res, next) => {
@@ -24,3 +25,12 @@ exports.getRestaurantsByLocation = (req, res, next) => {
       next(err);
     });
 };
+
+exports.getIndividualRestaurantByLocation = (req, res, next) => {
+  const {location, name} = req.params;
+  fetchIndividualRestaurantByLocation(location, name).then((restaurant) => {
+    res.status(200).send(restaurant);
+  }).catch((err) => {
+    next(err);
+  })
+}
