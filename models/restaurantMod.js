@@ -35,32 +35,32 @@ exports.fetchRestaurantsByLocation = async (location) => {
   // const area = location.slice(0, 3);
   // const regExNo = /[0-9]/;
   const coordinates = await fetchUserCoordinates(location)
+  // await Restaurant.createIndex( { location: "2dsphere" } )
   // .then((coords) => {
     // console.log(coords)
     // return coords
   // });
 
     
-    // console.log(coordinates)
+    console.log(typeof coordinates.longitude)
    
   // if (area[0].match(regExNo)) {
   //   return Promise.reject({ status: 400, msg: "Invalid location type" });
   // }
   return Restaurant.find(
     { location: 
-      {$near: 
-        {$geometry: 
-          {geoLong: coordinates.longitude, geoLat: coordinates.latitude },
-          $minDistance: 100,
-          $maxDistance: 100
+      {$geoWithin: 
+        {$centerSphere: 
+          [[coordinates.longitude, coordinates.latitude], 0.5/3963.2]
         }
       }
-    }).then(
+    })
+    .then(
     (restaurantList) => {
       // if (restaurantList.length === 0) {
       //   return Promise.reject({ status: 404, msg: "Location does not exist" });
       // }
-      console.log(restaurantList)
+      console.log(restaurantList.length)
       return restaurantList;
     }
   );
