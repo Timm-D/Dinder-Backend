@@ -7,7 +7,7 @@ const {
   getIndividualRestaurantByLocation,
 } = require("./controllers/restaurantCon");
 
-const { getAllUsers, getIndividualUserByUsername } = require("./controllers/userCon");
+const { getAllUsers, getIndividualUserByUsername, patchUserByUsername } = require("./controllers/userCon");
 app.use(express.json());
 
 app.get("/api/restaurants", getAllRestaurants);
@@ -15,6 +15,8 @@ app.get("/api/users", getAllUsers);
 app.get("/api/restaurants/:location", getRestaurantsByLocation);
 app.get("/api/restaurants/:location/:name", getIndividualRestaurantByLocation);
 app.get("/api/users/:username", getIndividualUserByUsername);
+
+app.patch("/api/users/:username", patchUserByUsername);
 
 app.all("*", (req, res) => {
   res.status(404).send({ msg: "Not Found" });
