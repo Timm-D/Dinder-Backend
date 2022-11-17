@@ -48,7 +48,7 @@ const usersSchema = new mongoose.Schema({
   },
   preferences:  {
     type: [{type: String}],
-    required: true,
+    required: false,
   },
 });
 
