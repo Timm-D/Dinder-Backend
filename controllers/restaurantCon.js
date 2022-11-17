@@ -2,6 +2,7 @@ const {
   fetchAllRestaurants,
   fetchRestaurantsByLocation,
   fetchIndividualRestaurantByLocation,
+  fetchUserCoordinates,
 } = require("../models/restaurantMod");
 
 exports.getAllRestaurants = (req, res, next) => {
@@ -13,6 +14,13 @@ exports.getAllRestaurants = (req, res, next) => {
       next(err);
     });
 };
+
+// exports.getUserCoordinates = (req, res, next) => {
+//   const {postcode} = req.params;
+//   fetchUserCoordinates(postcode).then(() => {
+
+//   })
+// }
 
 exports.getRestaurantsByLocation = (req, res, next) => {
   const { location } = req.params;

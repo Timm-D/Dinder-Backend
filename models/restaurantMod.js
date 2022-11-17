@@ -1,4 +1,7 @@
 const { Restaurant } = require("../database/seed");
+const PostcodesIO = require('postcodesio-client');
+const { post } = require("../app");
+const postcodes = new PostcodesIO();
 // const db = require("../database/connection");
 
 exports.fetchAllRestaurants = () => {
@@ -7,17 +10,57 @@ exports.fetchAllRestaurants = () => {
   });
 };
 
-exports.fetchRestaurantsByLocation = (location) => {
-  const area = location.slice(0, 3);
+const  fetchUserCoordinates = async (postcode) => {
+  const area = postcode.slice(0, 3);
   const regExNo = /[0-9]/;
   if (area[0].match(regExNo)) {
     return Promise.reject({ status: 400, msg: "Invalid location type" });
   }
-  return Restaurant.find({ postCode: { $regex: new RegExp(area, "i") } }).then(
-    (restaurantList) => {
-      if (restaurantList.length === 0) {
-        return Promise.reject({ status: 404, msg: "Location does not exist" });
+  try { 
+    const address = await postcodes.lookup(postcode)
+    if (address === null) {
+      return Promise.reject({status: 404, msg: "Location does not exist"})
+    }
+    // console.log(address)
+      const coordinates = {latitude: address.latitude, longitude: address.longitude};
+      // console.log(coordinates)
+      return coordinates;
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+
+exports.fetchRestaurantsByLocation = async (location) => {
+  // const area = location.slice(0, 3);
+  // const regExNo = /[0-9]/;
+  const coordinates = await fetchUserCoordinates(location)
+  // .then((coords) => {
+    // console.log(coords)
+    // return coords
+  // });
+
+    
+    // console.log(coordinates)
+   
+  // if (area[0].match(regExNo)) {
+  //   return Promise.reject({ status: 400, msg: "Invalid location type" });
+  // }
+  return Restaurant.find(
+    { location: 
+      {$near: 
+        {$geometry: 
+          {geoLong: coordinates.longitude, geoLat: coordinates.latitude },
+          $minDistance: 100,
+          $maxDistance: 100
+        }
       }
+    }).then(
+    (restaurantList) => {
+      // if (restaurantList.length === 0) {
+      //   return Promise.reject({ status: 404, msg: "Location does not exist" });
+      // }
+      console.log(restaurantList)
       return restaurantList;
     }
   );
