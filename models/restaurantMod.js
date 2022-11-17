@@ -31,9 +31,10 @@ const  fetchUserCoordinates = async (postcode) => {
 }
 
 
-exports.fetchRestaurantsByLocation = async (location) => {
+exports.fetchRestaurantsByLocation = async (location, preferences) => {
   // const area = location.slice(0, 3);
   // const regExNo = /[0-9]/;
+  
   const coordinates = await fetchUserCoordinates(location)
   // await Restaurant.createIndex( { location: "2dsphere" } )
   // .then((coords) => {
@@ -54,13 +55,13 @@ exports.fetchRestaurantsByLocation = async (location) => {
           [[coordinates.longitude, coordinates.latitude], 0.5/3963.2]
         }
       }
-    })
+    ,type:preferences})
     .then(
     (restaurantList) => {
       // if (restaurantList.length === 0) {
       //   return Promise.reject({ status: 404, msg: "Location does not exist" });
       // }
-      console.log(restaurantList.length)
+      console.log(restaurantList)
       return restaurantList;
     }
   );

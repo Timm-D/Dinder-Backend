@@ -18,6 +18,10 @@ app.get("/api/restaurants/:location", getRestaurantsByLocation);
 app.get("/api/restaurants/:location/:name", getIndividualRestaurantByLocation);
 app.get("/api/users/:username", getIndividualUserByUsername);
 
+
+
+
+
 app.all("*", (req, res) => {
   res.status(404).send({ msg: "Not Found" });
 });

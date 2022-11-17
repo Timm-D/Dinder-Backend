@@ -24,8 +24,10 @@ exports.getAllRestaurants = (req, res, next) => {
 
 exports.getRestaurantsByLocation = (req, res, next) => {
   const { location } = req.params;
-
-  fetchRestaurantsByLocation(location)
+  const {preferences} = req.query;
+  console.log(preferences, "controller")
+  // console.log(req.query)
+  fetchRestaurantsByLocation(location, preferences)
     .then((restaurants) => {
       res.status(200).send(restaurants);
     })
