@@ -1,4 +1,4 @@
-const { fetchAllUsers, fetchIndividualUserByUsername } = require("../models/userMod");
+const { fetchAllUsers, fetchIndividualUserByUsername, updateUserByUsername } = require("../models/userMod");
 exports.getAllUsers = (req, res, next) => {
   fetchAllUsers()
     .then((userData) => {
@@ -22,5 +22,9 @@ exports.patchUserByUsername = (req, res, next) => {
   const {username} = req.params;
   const {preferences} = req.body;
   // console.log(preferences)
-  
+  updateUserByUsername(username, preferences).then((updatedUser) => {
+    res.status(200).send(updatedUser)
+  }).catch((err) => {
+    next(err)
+  })
 }

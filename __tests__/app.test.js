@@ -204,7 +204,7 @@ describe("PATCH /api/users/:username", () => {
   test("200: returns updated user information, editing preferences", () => {
     return request(app)
     .patch("/api/users/Sol")
-    .send({preferences: "English"})
+    .send({preferences: ["English"]})
     .expect(200)
     .then(({body}) => {
       expect(body).toHaveLength(1);
@@ -213,8 +213,44 @@ describe("PATCH /api/users/:username", () => {
         username: "Sol",
         password: "MyPassword00",
         postcode: "M5 6TN",
-        preferences: ["Italian", "English"]
       }])
+      expect(body[0].preferences).toEqual(["English"])
     })
   })
+  test("400:responds with error when the username contains invalid characters", () => {
+    return request(app)
+      .patch("/api/users/b!lly*")
+      .send({preferences: ["English"]})
+      .expect(400)
+      .then((response) => {
+        expect(response.body).toEqual({ msg: "Invalid username" });
+      });
+  });
+  test("400:responds with error when preferences is not an array", () => {
+    return request(app)
+      .patch("/api/users/Sol")
+      .send({preferences: "English"})
+      .expect(400)
+      .then((response) => {
+        expect(response.body).toEqual({ msg: "Invalid body" });
+      });
+  });
+  test("400: responds with error when request key is incorrect", () => {
+    return request(app)
+      .patch("/api/users/Sol")
+      .send({preference: ["English"]})
+      .expect(400)
+      .then((response) => {
+        expect(response.body).toEqual({ msg: "Invalid key" });
+      });
+  });
+  test("404: responds with error when the user does not exist", () => {
+    return request(app)
+      .patch("/api/users/notAUser")
+      .send({preferences: ["English"]})
+      .expect(404)
+      .then((response) => {
+        expect(response.body).toEqual({ msg: "User not found" });
+      });
+  });
 })
