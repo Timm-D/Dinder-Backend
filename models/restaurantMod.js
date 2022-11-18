@@ -48,20 +48,29 @@ exports.fetchRestaurantsByLocation = async (location, preferences) => {
   // if (area[0].match(regExNo)) {
   //   return Promise.reject({ status: 400, msg: "Invalid location type" });
   // }
+  let queryObject = {
+    location: {
+      $geoWithin: {
+        $centerSphere: [
+          [coordinates.longitude, coordinates.latitude],
+          0.5 / 3963.2,
+        ],
+      },
+    },
+  };
+  if (preferences) {
+    queryObject.type = preferences;
+  }
+
   return Restaurant.find(
-    { location: 
-      {$geoWithin: 
-        {$centerSphere: 
-          [[coordinates.longitude, coordinates.latitude], 0.5/3963.2]
-        }
-      }
-    ,type:preferences})
+    queryObject)
     .then(
     (restaurantList) => {
       // if (restaurantList.length === 0) {
       //   return Promise.reject({ status: 404, msg: "Location does not exist" });
       // }
       console.log(restaurantList)
+      console.log(restaurantList.length)
       return restaurantList;
     }
   );

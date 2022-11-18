@@ -98,9 +98,9 @@ describe("GET/api/restaurants/:location", () => {
         });
       });
   });
-test.only("200: returns with a list of restaurants by preference", () => {
+test("200: returns with a list of restaurants by preference", () => {
 return request(app)
-.get("/api/restaurants/PL1 1AR?preferences=Italian")
+.get("/api/restaurants/PL1 1AR?preferences=Italian&preferences=English&preferences=Indian")
 .expect(200)
 .then(({body}) => {
   expect(Array.isArray(body)).toBe(true),
@@ -112,7 +112,7 @@ return request(app)
       geoLong: expect.any(Number),
       geoLat: expect.any(Number),
       type: expect.any(String)})
-      expect(Element.type).toBe("Italian")
+      expect(["Italian", "English", "Indian"]).toContain(Element.type)
   })
   
 })
