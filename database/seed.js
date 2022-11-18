@@ -19,6 +19,16 @@ const restaurantSchema = new mongoose.Schema({
     min: 0,
     max: 5,
   },
+  location: {
+    type: {
+      type: String,
+      enum: ['Point'],
+      },
+    coordinates: {
+      type: [Number],
+      required: true
+      }
+        },
   geoLong: {
     type: Number,
     required: true,
@@ -60,11 +70,14 @@ const usersSchema = new mongoose.Schema({
 });
 
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);
+
+
 const Users = mongoose.model("Users", usersSchema);
 const Preferences = mongoose.model("Preferences", preferenceSchema);
 const seedDataBase = async (restaurantData, usersData, preferencesData) => {
   await Restaurant.deleteMany({});
   await Restaurant.insertMany(restaurantData);
+  // await Restaurant.createIndex( { location: "2dsphere" } )
   await Users.deleteMany({});
   await Users.insertMany(usersData);
   await Preferences.deleteMany({});

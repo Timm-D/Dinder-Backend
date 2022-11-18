@@ -103,7 +103,7 @@ describe("GET/api/restaurants/:location", () => {
       .get("/api/restaurants/PL1 1AR")
       .expect(200)
       .then(({ body }) => {
-        expect(body).toHaveLength(20);
+         expect(body).toHaveLength(29);
         expect(Array.isArray(body)).toBe(true);
         body.forEach((restaurant) => {
           expect(restaurant).toEqual(
@@ -120,7 +120,25 @@ describe("GET/api/restaurants/:location", () => {
         });
       });
   });
-
+test("200: returns with a list of restaurants by preference", () => {
+return request(app)
+.get("/api/restaurants/PL1 1AR?preferences=Italian&preferences=English&preferences=Indian")
+.expect(200)
+.then(({body}) => {
+  expect(Array.isArray(body)).toBe(true),
+  body.forEach((Element) => {
+    expect.objectContaining({name: expect.any(String),
+      addressLine1: expect.any(String),
+      postCode: expect.any(String),
+      ratingValue: expect.any(Number),
+      geoLong: expect.any(Number),
+      geoLat: expect.any(Number),
+      type: expect.any(String)})
+      expect(["Italian", "English", "Indian"]).toContain(Element.type)
+  })
+  
+})
+})
   test("400:responds with error when the location is of invalid type", () => {
     return request(app)
       .get("/api/restaurants/123")
@@ -139,6 +157,8 @@ describe("GET/api/restaurants/:location", () => {
       });
   });
 });
+
+
 
 
 
