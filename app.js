@@ -1,6 +1,7 @@
 const express = require("express");
 const db = require("./database/connection");
 const app = express();
+const passport = require('passport');
 
 const {
   getAllRestaurants,
@@ -26,7 +27,7 @@ app.get("/api/restaurants/:location/:name", getIndividualRestaurantByLocation);
 app.get("/api/users/:username", getIndividualUserByUsername);
 app.get("/api/preferences", getAllPreferences);
 
-app.post("/api/users", passport.authenticate(postUserInfo))
+app.post("/api/users", passport.authenticate('local', { successRedirect: '/',failureRedirect: '/login' }), postUserInfo)
 
 app.patch("/api/users/:username", patchUserByUsername);
 

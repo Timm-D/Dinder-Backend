@@ -31,5 +31,5 @@ exports.patchUserByUsername = (req, res, next) => {
 }
 
 exports.postUserInfo = (req, res, next) => {
-
+  res.json({username: req.username})
 }
