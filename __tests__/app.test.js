@@ -8,9 +8,9 @@ const {
   clearDataBase,
 } = require("../database/seed");
 
-const { restaurantData, usersData } = seedData;
+const { restaurantData, usersData, preferencesData } = seedData;
 
-beforeEach(async () => await seedDataBase(restaurantData, usersData));
+beforeEach(async () => await seedDataBase(restaurantData, usersData, preferencesData));
 
 //Will clear DB post seed
 // afterEach(async () => await clearDataBase())
