@@ -6,7 +6,9 @@ const {
   getRestaurantsByLocation,
   getIndividualRestaurantByLocation,
 } = require("./controllers/restaurantCon");
-
+const {
+  getAllPreferences
+} = require("./controllers/preferenceCon");
 const { getAllUsers, getIndividualUserByUsername, patchUserByUsername } = require("./controllers/userCon");
 app.use(express.json());
 
@@ -15,6 +17,8 @@ app.get("/api/users", getAllUsers);
 app.get("/api/restaurants/:location", getRestaurantsByLocation);
 app.get("/api/restaurants/:location/:name", getIndividualRestaurantByLocation);
 app.get("/api/users/:username", getIndividualUserByUsername);
+app.get("/api/preferences", getAllPreferences);
+
 
 app.patch("/api/users/:username", patchUserByUsername);
 

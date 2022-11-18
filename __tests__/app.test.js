@@ -6,6 +6,7 @@ const {
   seedDataBase,
   closeDataBase,
   clearDataBase,
+  Preferences,
 } = require("../database/seed");
 
 const { restaurantData, usersData, preferencesData } = seedData;
@@ -41,6 +42,27 @@ describe("GET/api/restaurants", () => {
       });
   });
 });
+
+describe("GET/api/preferences", () => {
+  test("200: responds with an object containing all preferences in an array", () => {
+    return request (app)
+    .get("/api/preferences")
+    .expect(200)
+    .then(({body}) => {
+      expect(body).toHaveLength(11);
+      expect(Array.isArray(body)).toBe(true);
+      body.forEach((preference) => {
+        expect(preference).toEqual(
+          expect.objectContaining({
+            preference: expect.any(String)
+          })
+        );
+      })
+    })
+  })
+})
+
+
 
 describe("GET/api/users", () => {
   test("200:responds with object containing an array of all users", () => {
