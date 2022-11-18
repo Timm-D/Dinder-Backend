@@ -18,3 +18,26 @@ exports.fetchIndividualUserByUsername = (username) => {
     return Promise.reject({status: 400, msg: "Invalid username"})
   }
 }
+
+exports.updateUserByUsername = (username, preferences) => {
+  if (preferences === undefined) {
+    return Promise.reject({status: 400, msg: "Invalid key"})
+  }
+  const regEx = /^[0-9a-zA-Z]+$/;
+  if (username.match(regEx) && Array.isArray(preferences)) {
+    return Users.findOneAndUpdate(
+      {username},
+      {$set: {preferences: preferences}},
+      {returnOriginal: false}
+      ).then((updatedUser) => {
+        if (updatedUser === null) {
+          return Promise.reject({status: 404, msg: "User not found"})
+        }
+      return [updatedUser];
+    })
+  } else if (!username.match(regEx)) {
+    return Promise.reject({status: 400, msg: "Invalid username"})
+  } else {
+    return Promise.reject({status: 400, msg: "Invalid body"})
+  }
+}
