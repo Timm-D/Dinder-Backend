@@ -24,6 +24,7 @@ app.get("/api/preferences", getAllPreferences);
 
 app.patch("/api/users/:username", patchUserByUsername);
 
+
 app.all("*", (req, res) => {
   res.status(404).send({ msg: "Not Found" });
 });
