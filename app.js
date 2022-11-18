@@ -10,7 +10,7 @@ const {
 const {
   getAllPreferences
 } = require("./controllers/preferenceCon");
-const { getAllUsers, getIndividualUserByUsername, patchUserByUsername } = require("./controllers/userCon");
+const { getAllUsers, getIndividualUserByUsername, patchUserByUsername, deleteUserByUsername } = require("./controllers/userCon");
 app.use(express.json());
 
 app.get("/api/restaurants", getAllRestaurants);
@@ -23,6 +23,8 @@ app.get("/api/preferences", getAllPreferences);
 
 
 app.patch("/api/users/:username", patchUserByUsername);
+
+app.delete("/api/users/:username", deleteUserByUsername);
 
 app.all("*", (req, res) => {
   res.status(404).send({ msg: "Not Found" });

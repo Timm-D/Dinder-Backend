@@ -296,3 +296,27 @@ describe("PATCH /api/users/:username", () => {
       });
   });
 })
+
+describe("DELETE /api/users/:username", () => {
+  test("204: deletes user profile", () => {
+    return request(app)
+    .delete("/api/users/Sol")
+    .expect(204)
+  })
+  test("400: responds with error when the username contains invalid characters", () => {
+    return request(app)
+      .delete("/api/users/b!lly*")
+      .expect(400)
+      .then((response) => {
+        expect(response.body).toEqual({ msg: "Invalid username" });
+      });
+  });
+  test("404: responds with error when the username does not exist", () => {
+    return request(app)
+      .delete("/api/users/Sal")
+      .expect(404)
+      .then((response) => {
+        expect(response.body).toEqual({ msg: "User not found" });
+      });
+  });
+})
