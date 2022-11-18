@@ -43,7 +43,6 @@ exports.updateUserByUsername = (username, preferences) => {
 }
 
 exports.deleteUserByUsername = (username) => {
-  console.log(username)
   const regEx = /^[0-9a-zA-Z]+$/;
   if (username.match(regEx)) {
     return Users.deleteOne({username: username}).then((result) => {

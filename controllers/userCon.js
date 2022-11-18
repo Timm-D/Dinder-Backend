@@ -21,7 +21,6 @@ exports.getIndividualUserByUsername = (req, res, next) => {
 exports.patchUserByUsername = (req, res, next) => {
   const {username} = req.params;
   const {preferences} = req.body;
-  // console.log(preferences)
   updateUserByUsername(username, preferences).then((updatedUser) => {
     res.status(200).send(updatedUser)
   }).catch((err) => {
