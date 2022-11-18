@@ -5,6 +5,7 @@ const {
   getAllRestaurants,
   getRestaurantsByLocation,
   getIndividualRestaurantByLocation,
+  getUserCoordinates,
 } = require("./controllers/restaurantCon");
 
 const { getAllUsers, getIndividualUserByUsername, patchUserByUsername } = require("./controllers/userCon");
@@ -12,6 +13,7 @@ app.use(express.json());
 
 app.get("/api/restaurants", getAllRestaurants);
 app.get("/api/users", getAllUsers);
+// app.get("/api.postcodes.io/postcodes/:postcode", getUserCoordinates);
 app.get("/api/restaurants/:location", getRestaurantsByLocation);
 app.get("/api/restaurants/:location/:name", getIndividualRestaurantByLocation);
 app.get("/api/users/:username", getIndividualUserByUsername);
@@ -31,6 +33,7 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
+  console.log(err)
   res.status(500).send({ msg: "Server Error" });
 });
 
