@@ -1,6 +1,7 @@
 const express = require("express");
 const db = require("./database/connection");
 const app = express();
+const cors = require("cors");
 const passport = require("passport");
 
 const {
@@ -15,9 +16,10 @@ const {
   getIndividualUserByUsername,
   patchUserByUsername,
   deleteUserByUsername,
+
   postUserInfo,
 } = require("./controllers/userCon");
-
+app.use(cors());
 app.use(express.json());
 
 app.get("/api/restaurants", getAllRestaurants);

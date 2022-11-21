@@ -93,7 +93,6 @@ exports.insertUserInfo = (username, postcode, password) => {
       password: password,
     });
     return userData.save().then((userInfo) => {
-      console.log(userInfo);
       return userInfo;
     });
   } else if (!username.match(regEx)) {
