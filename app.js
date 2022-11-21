@@ -2,6 +2,8 @@ const express = require("express");
 const db = require("./database/connection");
 const app = express();
 const cors = require("cors");
+const passport = require("passport");
+
 const {
   getAllRestaurants,
   getRestaurantsByLocation,
@@ -14,8 +16,9 @@ const {
   getIndividualUserByUsername,
   patchUserByUsername,
   deleteUserByUsername,
-} = require("./controllers/userCon");
 
+  postUserInfo,
+} = require("./controllers/userCon");
 app.use(cors());
 app.use(express.json());
 
@@ -26,6 +29,8 @@ app.get("/api/restaurants/:location", getRestaurantsByLocation);
 app.get("/api/restaurants/:location/:name", getIndividualRestaurantByLocation);
 app.get("/api/users/:username", getIndividualUserByUsername);
 app.get("/api/preferences", getAllPreferences);
+
+app.post("/api/users", postUserInfo);
 
 app.patch("/api/users/:username", patchUserByUsername);
 

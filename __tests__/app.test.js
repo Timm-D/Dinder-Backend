@@ -11,7 +11,9 @@ const {
 
 const { restaurantData, usersData, preferencesData } = seedData;
 
-beforeEach(async () => await seedDataBase(restaurantData, usersData, preferencesData));
+beforeEach(
+  async () => await seedDataBase(restaurantData, usersData, preferencesData)
+);
 
 //Will clear DB post seed
 // afterEach(async () => await clearDataBase())
@@ -45,24 +47,22 @@ describe("GET/api/restaurants", () => {
 
 describe("GET/api/preferences", () => {
   test("200: responds with an object containing all preferences in an array", () => {
-    return request (app)
-    .get("/api/preferences")
-    .expect(200)
-    .then(({body}) => {
-      expect(body).toHaveLength(11);
-      expect(Array.isArray(body)).toBe(true);
-      body.forEach((preference) => {
-        expect(preference).toEqual(
-          expect.objectContaining({
-            preference: expect.any(String)
-          })
-        );
-      })
-    })
-  })
-})
-
-
+    return request(app)
+      .get("/api/preferences")
+      .expect(200)
+      .then(({ body }) => {
+        expect(body).toHaveLength(11);
+        expect(Array.isArray(body)).toBe(true);
+        body.forEach((preference) => {
+          expect(preference).toEqual(
+            expect.objectContaining({
+              preference: expect.any(String),
+            })
+          );
+        });
+      });
+  });
+});
 
 describe("GET/api/users", () => {
   test("200:responds with object containing an array of all users", () => {
@@ -103,7 +103,7 @@ describe("GET/api/restaurants/:location", () => {
       .get("/api/restaurants/PL1 1AR")
       .expect(200)
       .then(({ body }) => {
-         expect(body).toHaveLength(29);
+        expect(body).toHaveLength(29);
         expect(Array.isArray(body)).toBe(true);
         body.forEach((restaurant) => {
           expect(restaurant).toEqual(
@@ -120,25 +120,28 @@ describe("GET/api/restaurants/:location", () => {
         });
       });
   });
-test("200: returns with a list of restaurants by preference", () => {
-return request(app)
-.get("/api/restaurants/PL1 1AR?preferences=Italian&preferences=English&preferences=Indian")
-.expect(200)
-.then(({body}) => {
-  expect(Array.isArray(body)).toBe(true),
-  body.forEach((Element) => {
-    expect.objectContaining({name: expect.any(String),
-      addressLine1: expect.any(String),
-      postCode: expect.any(String),
-      ratingValue: expect.any(Number),
-      geoLong: expect.any(Number),
-      geoLat: expect.any(Number),
-      type: expect.any(String)})
-      expect(["Italian", "English", "Indian"]).toContain(Element.type)
-  })
-  
-})
-})
+  test("200: returns with a list of restaurants by preference", () => {
+    return request(app)
+      .get(
+        "/api/restaurants/PL1 1AR?preferences=Italian&preferences=English&preferences=Indian"
+      )
+      .expect(200)
+      .then(({ body }) => {
+        expect(Array.isArray(body)).toBe(true),
+          body.forEach((Element) => {
+            expect.objectContaining({
+              name: expect.any(String),
+              addressLine1: expect.any(String),
+              postCode: expect.any(String),
+              ratingValue: expect.any(Number),
+              geoLong: expect.any(Number),
+              geoLat: expect.any(Number),
+              type: expect.any(String),
+            });
+            expect(["Italian", "English", "Indian"]).toContain(Element.type);
+          });
+      });
+  });
   test("400:responds with error when the location is of invalid type", () => {
     return request(app)
       .get("/api/restaurants/123")
@@ -158,29 +161,27 @@ return request(app)
   });
 });
 
-
-
-
-
 describe("GET/api/restaurants/:location/:name", () => {
   test("200: returns a single restaurant in a selected location", () => {
     return request(app)
-    .get("/api/restaurants/PL1 1AR/50 Degrees North")
-    .expect(200)
-    .then(({ body }) => {
-      expect(body).toHaveLength(1);
-      expect(Array.isArray(body)).toBe(true);
-      expect.objectContaining([{
-        name: "50 Degrees North",
-        addressLine1: "Copthorne Hotel, Armada Way, Plymouth",
-        postCode: "PL1 1AR",
-        ratingValue: 4,
-        geoLong: -4.1430832636010955,
-        geoLat: 50.3745463,
-        type: "French"
-      }])
-    })
-  })
+      .get("/api/restaurants/PL1 1AR/50 Degrees North")
+      .expect(200)
+      .then(({ body }) => {
+        expect(body).toHaveLength(1);
+        expect(Array.isArray(body)).toBe(true);
+        expect.objectContaining([
+          {
+            name: "50 Degrees North",
+            addressLine1: "Copthorne Hotel, Armada Way, Plymouth",
+            postCode: "PL1 1AR",
+            ratingValue: 4,
+            geoLong: -4.1430832636010955,
+            geoLat: 50.3745463,
+            type: "French",
+          },
+        ]);
+      });
+  });
   test("400:responds with error when the location is of invalid type", () => {
     return request(app)
       .get("/api/restaurants/123/50 Degrees North")
@@ -206,24 +207,26 @@ describe("GET/api/restaurants/:location/:name", () => {
         expect(response.body).toEqual({ msg: "Nothing found" });
       });
   });
-})
+});
 
 describe("GET /api/users/:username", () => {
   test("200: returns array with specified users information", () => {
     return request(app)
-    .get("/api/users/Sol")
-    .expect(200)
-    .then(({body}) => {
-      expect(body).toHaveLength(1);
-      expect(Array.isArray(body)).toBe(true);
-      expect.objectContaining([{
-        username: "Sol",
-        password: "MyPassword00",
-        postcode: "M5 6TN",
-        preferences: ["Italian"]
-      }])
-    })
-  })
+      .get("/api/users/Sol")
+      .expect(200)
+      .then(({ body }) => {
+        expect(body).toHaveLength(1);
+        expect(Array.isArray(body)).toBe(true);
+        expect.objectContaining([
+          {
+            username: "Sol",
+            password: "MyPassword00",
+            postcode: "M5 6TN",
+            preferences: ["Italian"],
+          },
+        ]);
+      });
+  });
   test("400:responds with error when the username contains invalid characters", () => {
     return request(app)
       .get("/api/users/b!lly*")
@@ -240,39 +243,51 @@ describe("GET /api/users/:username", () => {
         expect(response.body).toEqual({ msg: "User not found" });
       });
   });
-})
+});
 
 describe("PATCH /api/users/:username", () => {
   test("200: returns updated user information, editing preferences", () => {
     return request(app)
-    .patch("/api/users/Sol")
-    .send({preferences: ["English"], password: "MyPassword00", postcode: "M7 9EQ"})
-    .expect(200)
-    .then(({body}) => {
-      expect(body).toHaveLength(1);
-      expect(Array.isArray(body)).toBe(true);
-      expect(body[0].postcode).toEqual("M7 9EQ");
-      expect(body[0].password).toEqual("MyPassword00");
-      expect(body[0].preferences).toEqual(["English"])
-    })
-  })
+      .patch("/api/users/Sol")
+      .send({
+        preferences: ["English"],
+        password: "MyPassword00",
+        postcode: "M7 9EQ",
+      })
+      .expect(200)
+      .then(({ body }) => {
+        expect(body).toHaveLength(1);
+        expect(Array.isArray(body)).toBe(true);
+        expect(body[0].postcode).toEqual("M7 9EQ");
+        expect(body[0].password).toEqual("MyPassword00");
+        expect(body[0].preferences).toEqual(["English"]);
+      });
+  });
   test("200: returns updated user information, editing other details", () => {
     return request(app)
-    .patch("/api/users/Sol")
-    .send({preferences: ["English"], password: "MyPassword01", postcode: "M7 9EQ"})
-    .expect(200)
-    .then(({body}) => {
-      expect(body).toHaveLength(1);
-      expect(Array.isArray(body)).toBe(true);
-      expect(body[0].postcode).toEqual("M7 9EQ");
-      expect(body[0].password).toEqual("MyPassword01");
-      expect(body[0].preferences).toEqual(["English"]);
-    })
-  })
+      .patch("/api/users/Sol")
+      .send({
+        preferences: ["English"],
+        password: "MyPassword01",
+        postcode: "M7 9EQ",
+      })
+      .expect(200)
+      .then(({ body }) => {
+        expect(body).toHaveLength(1);
+        expect(Array.isArray(body)).toBe(true);
+        expect(body[0].postcode).toEqual("M7 9EQ");
+        expect(body[0].password).toEqual("MyPassword01");
+        expect(body[0].preferences).toEqual(["English"]);
+      });
+  });
   test("400:responds with error when the username contains invalid characters", () => {
     return request(app)
       .patch("/api/users/b!lly*")
-      .send({preferences: ["English"], password: "MyPassword01", postcode: "M7 9EQ"})
+      .send({
+        preferences: ["English"],
+        password: "MyPassword01",
+        postcode: "M7 9EQ",
+      })
       .expect(400)
       .then((response) => {
         expect(response.body).toEqual({ msg: "Invalid username" });
@@ -281,7 +296,11 @@ describe("PATCH /api/users/:username", () => {
   test("400:responds with error when preferences is not an array", () => {
     return request(app)
       .patch("/api/users/Sol")
-      .send({preferences: "English", password: "MyPassword01", postcode: "M7 9EQ"})
+      .send({
+        preferences: "English",
+        password: "MyPassword01",
+        postcode: "M7 9EQ",
+      })
       .expect(400)
       .then((response) => {
         expect(response.body).toEqual({ msg: "Invalid body" });
@@ -289,35 +308,43 @@ describe("PATCH /api/users/:username", () => {
   });
   test("400: responds with error when password is not a string", () => {
     return request(app)
-    .patch("/api/users/Sol")
-    .send({preferences: ["English"], password: 123, postcode: "M7 9EQ"})
-    .expect(400)
-    .then((response) => {
-      expect(response.body).toEqual({ msg: "Invalid body" });
-    });
-  })
+      .patch("/api/users/Sol")
+      .send({ preferences: ["English"], password: 123, postcode: "M7 9EQ" })
+      .expect(400)
+      .then((response) => {
+        expect(response.body).toEqual({ msg: "Invalid body" });
+      });
+  });
   test("400: responds with error when postcode is not a string", () => {
     return request(app)
-    .patch("/api/users/Sol")
-    .send({preferences: ["English"], password: "MyPassword01", postcode: 123})
-    .expect(400)
-    .then((response) => { 
-      expect(response.body).toEqual({ msg: "Invalid body" });
-    });
-  })
+      .patch("/api/users/Sol")
+      .send({
+        preferences: ["English"],
+        password: "MyPassword01",
+        postcode: 123,
+      })
+      .expect(400)
+      .then((response) => {
+        expect(response.body).toEqual({ msg: "Invalid body" });
+      });
+  });
   test("400: responds with error when parts of the body are missing", () => {
     return request(app)
-    .patch("/api/users/Sol")
-    .send({preferences: ["English"], password: "MyPassword01"})
-    .expect(400)
-    .then((response) => { 
-      expect(response.body).toEqual({ msg: "Invalid key" });
-    });
-  })
+      .patch("/api/users/Sol")
+      .send({ preferences: ["English"], password: "MyPassword01" })
+      .expect(400)
+      .then((response) => {
+        expect(response.body).toEqual({ msg: "Invalid key" });
+      });
+  });
   test("400: responds with error when request key is incorrect", () => {
     return request(app)
       .patch("/api/users/Sol")
-      .send({preferences: ["English"], passw0rd: "MyPassword01", postcode: "M7 9EQ"})
+      .send({
+        preferences: ["English"],
+        passw0rd: "MyPassword01",
+        postcode: "M7 9EQ",
+      })
       .expect(400)
       .then((response) => {
         expect(response.body).toEqual({ msg: "Invalid key" });
@@ -326,21 +353,22 @@ describe("PATCH /api/users/:username", () => {
   test("404: responds with error when the user does not exist", () => {
     return request(app)
       .patch("/api/users/notAUser")
-      .send({preferences: ["English"], password: "MyPassword01", postcode: "M7 9EQ"})
+      .send({
+        preferences: ["English"],
+        password: "MyPassword01",
+        postcode: "M7 9EQ",
+      })
       .expect(404)
       .then((response) => {
         expect(response.body).toEqual({ msg: "User not found" });
       });
   });
-
-})
+});
 
 describe("DELETE /api/users/:username", () => {
   test("204: deletes user profile", () => {
-    return request(app)
-    .delete("/api/users/Sol")
-    .expect(204)
-  })
+    return request(app).delete("/api/users/Sol").expect(204);
+  });
   test("400: responds with error when the username contains invalid characters", () => {
     return request(app)
       .delete("/api/users/b!lly*")
@@ -357,4 +385,78 @@ describe("DELETE /api/users/:username", () => {
         expect(response.body).toEqual({ msg: "User not found" });
       });
   });
-})
+});
+
+describe("POST/api/users", () => {
+  test("201:adds a user info", () => {
+    return request(app)
+      .post("/api/users")
+      .expect(201)
+      .send({ username: "Hamza", password: "MyPassword01", postcode: "M7 9EQ" })
+      .then(({ body }) => {
+        expect(body.postcode).toEqual("M7 9EQ");
+        expect(body.username).toEqual("Hamza");
+        expect(body).toEqual(
+          expect.objectContaining({
+            username: expect.any(String),
+            postcode: expect.any(String),
+            password: expect.any(String),
+          })
+        );
+      });
+  });
+  test("400:responds with error when the username contains invalid characters", () => {
+    return request(app)
+      .post("/api/users")
+      .send({
+        username: "billy*",
+        password: "MyPassword01",
+        postcode: "M7 9EQ",
+      })
+      .expect(400)
+      .then((response) => {
+        expect(response.body).toEqual({ msg: "Invalid username" });
+      });
+  });
+  test("400: responds with error when password is not a string", () => {
+    return request(app)
+      .post("/api/users")
+      .send({ username: "Hamza", password: 123, postcode: "M7 9EQ" })
+      .expect(400)
+      .then((response) => {
+        expect(response.body).toEqual({ msg: "Invalid body" });
+      });
+  });
+  test("400: responds with error when postcode is not a string", () => {
+    return request(app)
+      .post("/api/users")
+      .send({ username: "Hamza", password: "MyPassword01", postcode: 123 })
+      .expect(400)
+      .then((response) => {
+        expect(response.body).toEqual({ msg: "Invalid body" });
+      });
+  });
+
+  test("400: responds with error when parts of the body are missing", () => {
+    return request(app)
+      .post("/api/users")
+      .send({ username: "Hamza", password: "MyPassword01" })
+      .expect(400)
+      .then((response) => {
+        expect(response.body).toEqual({ msg: "Invalid key" });
+      });
+  });
+  test("400: responds with error when request key is incorrect", () => {
+    return request(app)
+      .post("/api/users")
+      .send({
+        username: "Hamza",
+        passw0rd: "MyPassword01",
+        postcode: "M7 9EQ",
+      })
+      .expect(400)
+      .then((response) => {
+        expect(response.body).toEqual({ msg: "Invalid key" });
+      });
+  });
+});

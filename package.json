@@ -21,11 +21,14 @@
   "homepage": "https://github.com/Timm-D/Dinder-Backend#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jest": "^29.3.1",
     "mongoose": "^6.7.2",
     "nodemon": "^2.0.20",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
     "postcodesio-client": "^0.3.4",
     "supertest": "^6.3.1"
   }
