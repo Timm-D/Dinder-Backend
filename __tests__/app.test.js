@@ -256,6 +256,19 @@ describe("PATCH /api/users/:username", () => {
       expect(body[0].preferences).toEqual(["English"])
     })
   })
+  test("200: returns updated user information, editing other details", () => {
+    return request(app)
+    .patch("/api/users/Sol")
+    .send({preferences: ["English"], password: "MyPassword01", postcode: "M7 9EQ"})
+    .expect(200)
+    .then(({body}) => {
+      expect(body).toHaveLength(1);
+      expect(Array.isArray(body)).toBe(true);
+      expect(body[0].postcode).toEqual("M7 9EQ");
+      expect(body[0].password).toEqual("MyPassword01");
+      expect(body[0].preferences).toEqual(["English"]);
+    })
+  })
   test("400:responds with error when the username contains invalid characters", () => {
     return request(app)
       .patch("/api/users/b!lly*")
@@ -319,17 +332,29 @@ describe("PATCH /api/users/:username", () => {
         expect(response.body).toEqual({ msg: "User not found" });
       });
   });
-  test("200: returns updated user information, editing other details", () => {
+
+})
+
+describe("DELETE /api/users/:username", () => {
+  test("204: deletes user profile", () => {
     return request(app)
-    .patch("/api/users/Sol")
-    .send({preferences: ["English"], password: "MyPassword01", postcode: "M7 9EQ"})
-    .expect(200)
-    .then(({body}) => {
-      expect(body).toHaveLength(1);
-      expect(Array.isArray(body)).toBe(true);
-      expect(body[0].postcode).toEqual("M7 9EQ");
-      expect(body[0].password).toEqual("MyPassword01");
-      expect(body[0].preferences).toEqual(["English"]);
-    })
+    .delete("/api/users/Sol")
+    .expect(204)
   })
+  test("400: responds with error when the username contains invalid characters", () => {
+    return request(app)
+      .delete("/api/users/b!lly*")
+      .expect(400)
+      .then((response) => {
+        expect(response.body).toEqual({ msg: "Invalid username" });
+      });
+  });
+  test("404: responds with error when the username does not exist", () => {
+    return request(app)
+      .delete("/api/users/Sal")
+      .expect(404)
+      .then((response) => {
+        expect(response.body).toEqual({ msg: "User not found" });
+      });
+  });
 })

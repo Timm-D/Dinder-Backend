@@ -15,18 +15,9 @@ exports.getAllRestaurants = (req, res, next) => {
     });
 };
 
-// exports.getUserCoordinates = (req, res, next) => {
-//   const {postcode} = req.params;
-//   fetchUserCoordinates(postcode).then(() => {
-
-//   })
-// }
-
 exports.getRestaurantsByLocation = (req, res, next) => {
   const { location } = req.params;
   const {preferences} = req.query;
-  console.log(preferences, "controller")
-  // console.log(req.query)
   fetchRestaurantsByLocation(location, preferences)
     .then((restaurants) => {
       res.status(200).send(restaurants);

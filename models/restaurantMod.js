@@ -21,9 +21,7 @@ const  fetchUserCoordinates = async (postcode) => {
     if (address === null) {
       return Promise.reject({status: 404, msg: "Location does not exist"})
     }
-    // console.log(address)
       const coordinates = {latitude: address.latitude, longitude: address.longitude};
-      // console.log(coordinates)
       return coordinates;
   } catch(err) {
     console.log(err)
@@ -32,22 +30,7 @@ const  fetchUserCoordinates = async (postcode) => {
 
 
 exports.fetchRestaurantsByLocation = async (location, preferences) => {
-  // const area = location.slice(0, 3);
-  // const regExNo = /[0-9]/;
-  
   const coordinates = await fetchUserCoordinates(location)
-  // await Restaurant.createIndex( { location: "2dsphere" } )
-  // .then((coords) => {
-    // console.log(coords)
-    // return coords
-  // });
-
-    
-    console.log(typeof coordinates.longitude)
-   
-  // if (area[0].match(regExNo)) {
-  //   return Promise.reject({ status: 400, msg: "Invalid location type" });
-  // }
   let queryObject = {
     location: {
       $geoWithin: {
@@ -61,16 +44,10 @@ exports.fetchRestaurantsByLocation = async (location, preferences) => {
   if (preferences) {
     queryObject.type = preferences;
   }
-
   return Restaurant.find(
     queryObject)
     .then(
     (restaurantList) => {
-      // if (restaurantList.length === 0) {
-      //   return Promise.reject({ status: 404, msg: "Location does not exist" });
-      // }
-      console.log(restaurantList)
-      console.log(restaurantList.length)
       return restaurantList;
     }
   );
