@@ -18,18 +18,30 @@ require("dotenv").config({
 if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL not set");
 }
-
-const mongoString = process.env.DATABASE_URL;
-console.log(mongoString)
-
-async function connect() {
+//
+const connectDB = async () => {
   try {
-    await mongoose.connect(mongoString);
-    console.log("Connected to MongoDB");
+    const conn = await mongoose.connect(process.env.DATABASE_URL);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.log(error);
+    process.exit(1);
   }
 }
-connect();
 
-module.exports = connect;
+connectDB();
+//
+// const mongoString = process.env.DATABASE_URL;
+// console.log(mongoString)
+
+// async function connect() {
+//   try {
+//     await mongoose.connect(mongoString);
+//     console.log("Connected to MongoDB");
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+// connect();
+
+module.exports = connectDB;
