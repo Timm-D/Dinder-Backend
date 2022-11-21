@@ -1,16 +1,22 @@
 const express = require("express");
 const db = require("./database/connection");
 const app = express();
+const cors = require("cors");
 const {
   getAllRestaurants,
   getRestaurantsByLocation,
   getIndividualRestaurantByLocation,
   getUserCoordinates,
 } = require("./controllers/restaurantCon");
+const { getAllPreferences } = require("./controllers/preferenceCon");
 const {
-  getAllPreferences
-} = require("./controllers/preferenceCon");
-const { getAllUsers, getIndividualUserByUsername, patchUserByUsername, deleteUserByUsername } = require("./controllers/userCon");
+  getAllUsers,
+  getIndividualUserByUsername,
+  patchUserByUsername,
+  deleteUserByUsername,
+} = require("./controllers/userCon");
+
+app.use(cors());
 app.use(express.json());
 
 app.get("/api/restaurants", getAllRestaurants);
@@ -21,12 +27,9 @@ app.get("/api/restaurants/:location/:name", getIndividualRestaurantByLocation);
 app.get("/api/users/:username", getIndividualUserByUsername);
 app.get("/api/preferences", getAllPreferences);
 
-
 app.patch("/api/users/:username", patchUserByUsername);
 
-
 app.delete("/api/users/:username", deleteUserByUsername);
-
 
 app.all("*", (req, res) => {
   res.status(404).send({ msg: "Not Found" });
@@ -41,7 +44,7 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  console.log(err)
+  console.log(err);
   res.status(500).send({ msg: "Server Error" });
 });
 
