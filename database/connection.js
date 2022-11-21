@@ -1,11 +1,8 @@
 const mongoose = require("mongoose");
 const ENV = process.env.NODE_ENV || "dev";
 
-const mongoString = process.env.DATABASE_URL;
-console.log(mongoString);
-if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL not set");
-}
+console.log(ENV);
+
 const config =
   ENV === "production"
     ? {
@@ -18,6 +15,12 @@ const config =
 require("dotenv").config({
   path: `${__dirname}/../.env.${ENV}`,
 });
+
+if (!process.env.DATABASE_URL) {
+  throw new Error("DATABASE_URL not set");
+}
+
+const mongoString = process.env.DATABASE_URL;
 
 async function connect() {
   try {
