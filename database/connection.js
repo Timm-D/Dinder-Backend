@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const ENV = process.env.NODE_ENV || "dev";
+console.log(ENV , "this is our env")
 
 const config =
   ENV === "production"
