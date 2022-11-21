@@ -2,7 +2,7 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "Node app that connects to MongoDB",
-  "main": "listen.js",
+  "main": "server.js",
   "scripts": {
     "test": "jest",
     "seed": "node ./database/run-seed.js",
