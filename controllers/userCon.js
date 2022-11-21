@@ -1,3 +1,4 @@
+const LocalStrategy = require("passport-local");
 const { fetchAllUsers, fetchIndividualUserByUsername, updateUserByUsername } = require("../models/userMod");
 exports.getAllUsers = (req, res, next) => {
   fetchAllUsers()
@@ -27,4 +28,8 @@ exports.patchUserByUsername = (req, res, next) => {
   }).catch((err) => {
     next(err)
   })
+}
+
+exports.postUserInfo = (req, res, next) => {
+  res.json({username: req.username})
 }
