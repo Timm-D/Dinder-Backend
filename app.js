@@ -24,7 +24,9 @@ app.get("/api/preferences", getAllPreferences);
 
 app.patch("/api/users/:username", patchUserByUsername);
 
+
 app.delete("/api/users/:username", deleteUserByUsername);
+
 
 app.all("*", (req, res) => {
   res.status(404).send({ msg: "Not Found" });

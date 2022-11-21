@@ -19,15 +19,15 @@ exports.fetchIndividualUserByUsername = (username) => {
   }
 }
 
-exports.updateUserByUsername = (username, preferences) => {
-  if (preferences === undefined) {
+exports.updateUserByUsername = (username, preferences, postcode, password) => {
+  if (preferences === undefined || password === undefined || postcode === undefined) {
     return Promise.reject({status: 400, msg: "Invalid key"})
   }
   const regEx = /^[0-9a-zA-Z]+$/;
-  if (username.match(regEx) && Array.isArray(preferences)) {
+  if (username.match(regEx) && Array.isArray(preferences) && typeof(password)==="string" && typeof(postcode)=== "string") {
     return Users.findOneAndUpdate(
       {username},
-      {$set: {preferences: preferences}},
+      {$set: {preferences: preferences, password: password, postcode: postcode}},
       {returnOriginal: false}
       ).then((updatedUser) => {
         if (updatedUser === null) {
