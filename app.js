@@ -28,14 +28,7 @@ app.get("/api/restaurants/:location/:name", getIndividualRestaurantByLocation);
 app.get("/api/users/:username", getIndividualUserByUsername);
 app.get("/api/preferences", getAllPreferences);
 
-// app.post(
-//   "/api/users",
-//   passport.authenticate("local", {
-//     successRedirect: "/",
-//     failureRedirect: "/login",
-//   }),
-//   postUserInfo
-// );
+app.post("/api/users", postUserInfo);
 
 app.patch("/api/users/:username", patchUserByUsername);
 
