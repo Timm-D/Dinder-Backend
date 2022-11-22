@@ -1,6 +1,6 @@
 const { Restaurant } = require("../database/seed");
 const PostcodesIO = require('postcodesio-client');
-const { post } = require("../app");
+// const { post } = require("../app");
 const postcodes = new PostcodesIO();
 // const db = require("../database/connection");
 

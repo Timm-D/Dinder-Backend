@@ -1,14 +1,11 @@
 const express = require("express");
-const db = require("./database/connection");
 const app = express();
 const cors = require("cors");
-const passport = require("passport");
 
 const {
   getAllRestaurants,
   getRestaurantsByLocation,
   getIndividualRestaurantByLocation,
-  getUserCoordinates,
 } = require("./controllers/restaurantCon");
 const { getAllPreferences } = require("./controllers/preferenceCon");
 const {
@@ -24,7 +21,6 @@ app.use(express.json());
 
 app.get("/api/restaurants", getAllRestaurants);
 app.get("/api/users", getAllUsers);
-// app.get("/api.postcodes.io/postcodes/:postcode", getUserCoordinates);
 app.get("/api/restaurants/:location", getRestaurantsByLocation);
 app.get("/api/restaurants/:location/:name", getIndividualRestaurantByLocation);
 app.get("/api/users/:username", getIndividualUserByUsername);
